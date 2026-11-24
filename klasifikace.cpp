@@ -41,19 +41,27 @@ int znamky[STUDENTI][PREDMETY] = {
   
 
 // ===== Funkce – student A ===== 
+// 2. Dopředné deklarace funkcí studenta B
+double prumerStudenta(const int (&z)[STUDENTI][PREDMETY], int student);
+double prumerPredmetu(const int (&z)[STUDENTI][PREDMETY], int predmet);
+
+// 1. Rozšířený výpis tabulky o průměry
 void vypisTabulku(const int (&z)[STUDENTI][PREDMETY]) {
-    // Prázdné místo v levém horním rohu
+    // Nastavení formátování desetinných čísel na 2 místa (náhrada za std::fixed a std::setprecision)
+    std::cout.setf(std::ios::fixed);
+    std::cout.precision(2);
+
+    // Záhlaví
     std::cout.width(8);
     std::cout << "";
-
-    // Výpis záhlaví
     for (size_t j = 0; j < predmety.size(); ++j) {
         std::cout.width(6);
         std::cout << predmety[j];
     }
-    std::cout << "\n";
+    std::cout.width(7); // Šířka 7, aby "prumer" mělo před sebou 1 mezeru
+    std::cout << "prumer" << "\n";
 
-    // Výpis řádků se studenty
+    // Řádky se studenty a jejich průměry
     for (size_t i = 0; i < jmena.size(); ++i) {
         std::cout.width(8);
         std::cout << jmena[i];
@@ -62,8 +70,31 @@ void vypisTabulku(const int (&z)[STUDENTI][PREDMETY]) {
             std::cout.width(6);
             std::cout << z[i][j];
         }
-        std::cout << "\n";
+
+        std::cout.width(7);
+        std::cout << prumerStudenta(z, static_cast<int>(i)) << "\n";
     }
+
+    // Poslední řádek s průměry předmětů
+    std::cout.width(8);
+    std::cout << "prumer";
+    for (size_t j = 0; j < predmety.size(); ++j) {
+        std::cout.width(6);
+        std::cout << prumerPredmetu(z, static_cast<int>(j));
+    }
+    std::cout << "\n";
+}
+
+// 3. Lineární vyhledávání prvního studenta s danou známkou
+int prvniStudentSeZnamkou(const int (&z)[STUDENTI][PREDMETY], int znamka) {
+    for (size_t i = 0; i < jmena.size(); ++i) {
+        for (size_t j = 0; j < predmety.size(); ++j) {
+            if (z[i][j] == znamka) {
+                return static_cast<int>(i); // Okamžitě vracíme index prvního nalezeného
+            }
+        }
+    }
+    return -1; // Nikdo danou známku nemá
 }
 
   
