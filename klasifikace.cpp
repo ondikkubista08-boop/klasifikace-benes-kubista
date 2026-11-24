@@ -100,6 +100,7 @@ int prvniStudentSeZnamkou(const int (&z)[STUDENTI][PREDMETY], int znamka) {
   
 
 // ===== Funkce – student B ===== 
+// 1. Průměr jednoho studenta (průměr zadaného řádku)
 double prumerStudenta(const int (&z)[STUDENTI][PREDMETY], int student) {
     int soucet = 0;
     for (int j = 0; j < PREDMETY; ++j) {
@@ -108,12 +109,36 @@ double prumerStudenta(const int (&z)[STUDENTI][PREDMETY], int student) {
     return static_cast<double>(soucet) / PREDMETY;
 }
 
+// 2. Průměr jednoho předmětu (průměr zadaného sloupce)
 double prumerPredmetu(const int (&z)[STUDENTI][PREDMETY], int predmet) {
     int soucet = 0;
     for (int i = 0; i < STUDENTI; ++i) {
         soucet += z[i][predmet];
     }
     return static_cast<double>(soucet) / STUDENTI;
+}
+
+// 3. Šablony pro index nejmenšího a největšího prvku pole
+template<typename T>
+int indexMinima(const T pole[], int velikost) {
+    int idxMin = 0;
+    for (int i = 1; i < velikost; ++i) {
+        if (pole[i] < pole[idxMin]) {
+            idxMin = i;
+        }
+    }
+    return idxMin;
+}
+
+template<typename T>
+int indexMaxima(const T pole[], int velikost) {
+    int idxMax = 0;
+    for (int i = 1; i < velikost; ++i) {
+        if (pole[i] > pole[idxMax]) {
+            idxMax = i;
+        }
+    }
+    return idxMax;
 }
   
 
@@ -137,19 +162,21 @@ int main() {
     }
   
     // --- student B --- 
-const char* nazvyPredmetu[PREDMETY] = {"PRG", "MAT", "CJL", "ANJ"};
+const char* jmena[STUDENTI] = {
+        "Adam", "Bara", "Cyril", "Lucie", "Marek", "Ondra"
+    };
 
-    std::cout << std::fixed << std::setprecision(2);
-
-    std::cout << "Prumery studentu:\n";
+    // Naplnění pole průměry všech studentů
+    double prumery[STUDENTI];
     for (int i = 0; i < STUDENTI; ++i) {
-        std::cout << "Student " << (i + 1) << ": " << prumerStudenta(z, i) << '\n';
+        prumery[i] = prumerStudenta(z, i);
     }
 
-    std::cout << "\nPrumery predmetu:\n";
-    for (int j = 0; j < PREDMETY; ++j) {
-        std::cout << nazvyPredmetu[j] << ": " << prumerPredmetu(z, j) << '\n';
-    }
+    // Nejlepší = nejnižší průměr (indexMinima), nejhorší = nejvyšší průměr (indexMaxima)
+    int idxNejlepsi = indexMinima(prumery, STUDENTI);
+    int idxNejhorsi = indexMaxima(prumery, STUDENTI);
 
+    std::cout << "Nejlepsi: " << jmena[idxNejlepsi] << '\n';
+    std::cout << "Nejhorsi: " << jmena[idxNejhorsi] << '\n';
     return 0;
 } 
