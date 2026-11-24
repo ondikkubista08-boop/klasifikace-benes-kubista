@@ -1,1 +1,2 @@
-# klasifikace-benes-kubista
+Student A - Kubišta Ondřej
+Student B - Alexander Beneš
