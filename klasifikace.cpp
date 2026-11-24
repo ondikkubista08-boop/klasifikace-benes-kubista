@@ -121,6 +121,20 @@ int main() {
 
     // --- student A --- 
     vypisTabulku(znamky);
+
+  int indexPetka = prvniStudentSeZnamkou(znamky, 5);
+    if (indexPetka != -1) {
+        std::cout << "Prvni s petkou: " << jmena[indexPetka] << "\n";
+    } else {
+        std::cout << "Nikdo nema petku.\n";
+    }
+
+    int indexSestka = prvniStudentSeZnamkou(znamky, 6);
+    if (indexSestka != -1) {
+        std::cout << "Prvni se sestkou: " << jmena[indexSestka] << "\n";
+    } else {
+        std::cout << "Znamku 6 nema zadny student.\n";
+    }
   
     // --- student B --- 
 const char* nazvyPredmetu[PREDMETY] = {"PRG", "MAT", "CJL", "ANJ"};
