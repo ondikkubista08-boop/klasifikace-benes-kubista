@@ -41,6 +41,30 @@ int znamky[STUDENTI][PREDMETY] = {
   
 
 // ===== Funkce – student A ===== 
+void vypisTabulku(const int (&z)[STUDENTI][PREDMETY]) {
+    // Prázdné místo v levém horním rohu
+    std::cout.width(8);
+    std::cout << "";
+
+    // Výpis záhlaví
+    for (size_t j = 0; j < predmety.size(); ++j) {
+        std::cout.width(6);
+        std::cout << predmety[j];
+    }
+    std::cout << "\n";
+
+    // Výpis řádků se studenty
+    for (size_t i = 0; i < jmena.size(); ++i) {
+        std::cout.width(8);
+        std::cout << jmena[i];
+
+        for (size_t j = 0; j < predmety.size(); ++j) {
+            std::cout.width(6);
+            std::cout << z[i][j];
+        }
+        std::cout << "\n";
+    }
+}
 
   
 
