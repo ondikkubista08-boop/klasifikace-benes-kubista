@@ -94,7 +94,6 @@ int main() {
     // --- student B --- 
 const char* nazvyPredmetu[PREDMETY] = {"PRG", "MAT", "CJL", "ANJ"};
 
-    // 3. Kontrolní výpis (před další částí úkolu smaž)
     std::cout << std::fixed << std::setprecision(2);
 
     std::cout << "Prumery studentu:\n";
